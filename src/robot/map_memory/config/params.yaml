@@ -1,3 +1,21 @@
-# map_memory_node:
-#   ros__parameters:
-    
+map_memory_node:
+  ros__parameters:
+    map_frame: "sim_world"
+
+    # Size of one grid cell in metres
+    resolution: 0.1
+
+    # Grid size in cells
+    width: 400
+    height: 400
+
+    # World coordinates of the map's bottom-left corner. -20 puts the world origin in the
+    # middle of the map.
+    origin_x: -20.0
+    origin_y: -20.0
+
+    # How often (seconds) the timer checks whether to fuse, and re-publishes /map.
+    update_period_s: 1.0
+
+    # Only fuse a new costmap after the robot has moved this many metres.
+    distance_threshold: 1.5

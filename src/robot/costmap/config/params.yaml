@@ -1,7 +1,15 @@
 costmap_node:
   ros__parameters:
+    lidar_topic: "/lidar"
+    costmap_topic: "/costmap"
+
+    # Size of one grid cell in metres.
     resolution: 0.1
+
+    # Grid size in cells.
     width: 300
     height: 300
-    inflation_radius: 1.0
+
+    inflation_radius: 1.2
+
     max_cost: 100

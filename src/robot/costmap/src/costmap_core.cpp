@@ -95,7 +95,7 @@ nav_msgs::msg::OccupancyGrid CostmapCore::buildCostmap(const sensor_msgs::msg::L
   hits.reserve(scan.ranges.size());
 
   // Converting scan to a grid and tracing free space
-  for (size_t i = 0; i < scan.ranges.size(); ++i) {.
+  for (size_t i = 0; i < scan.ranges.size(); ++i) {
     const double angle = scan.angle_min + static_cast<double>(i) * scan.angle_increment;
     double range = scan.ranges[i];
 

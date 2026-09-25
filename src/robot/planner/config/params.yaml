@@ -1,3 +1,21 @@
-# planner_node:
-#   ros__parameters:
-    
+planner_node:
+  ros__parameters:
+    map_frame: "sim_world"
+
+    # Distance (metres) from the goal at which we consider it reached.
+    goal_tolerance: 0.5
+
+    # Give up on a goal after this many seconds.
+    goal_timeout_s: 120.0
+
+    # Replan at least this often (seconds) while driving
+    replan_period_s: 2.0
+
+    # --- A* cost tuning ---
+    # Robot is too close to object
+    lethal_cost: 50
+    # Per-metre cost multiplier for lethal cells. Big enough that A* only drives through
+    # them when there is no other option.
+    lethal_multiplier: 100.0
+    # How strongly to avoid (non-lethal) inflated cells. Raise to stay further from walls.
+    cost_weight: 5.0

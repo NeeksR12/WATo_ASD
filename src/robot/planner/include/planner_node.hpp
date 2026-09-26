@@ -12,6 +12,7 @@
 #include "planner_core.hpp"
 
 
+class PlannerNode : public rclcpp::Node {
   public:
     PlannerNode();
 

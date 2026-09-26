@@ -1,3 +1,25 @@
-# control_node:
-#   ros__parameters:
-    
+control_node:
+  ros__parameters:
+    # How far ahead (metres) along the path to aim
+    lookahead_distance: 1.5
+
+    # Stop when the robot is this close (metres) to the end of the path
+    goal_tolerance: 0.5
+
+    # Forward speeds, m/s.
+    linear_speed: 1.0
+    min_linear_speed: 0.2
+
+    # Turning-rate limit, rad/s.
+    max_angular_speed: 1.5
+
+    # If the target is more than this many radians off our heading (~69 degrees), spin
+    # on the spot before driving.
+    rotate_in_place_angle: 1.2
+
+    # /odom/filtered is the lidar's pose, 1.3 m ahead of the wheel axle. Pure Pursuit
+    # steers the axle, so shift back by this much.
+    pursuit_point_offset: 1.3
+
+    # Control loop period (ms). 100 ms = 10 Hz.
+    control_period_ms: 100

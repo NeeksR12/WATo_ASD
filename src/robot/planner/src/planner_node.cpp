@@ -40,8 +40,7 @@ void PlannerNode::mapCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg)
   current_map_ = *msg;
   have_map_ = true;
 
-  // New map = maybe new obstacles on our current path. If we're driving somewhere,
-  // replan so the path reflects what we now know.
+  // New map = maybe new obstacles on current path
   if (state_ == State::WAITING_FOR_ROBOT_TO_REACH_GOAL) {
     planPath();
   }
@@ -74,7 +73,7 @@ void PlannerNode::timerCallback() {
     return;
   }
 
-  // Transition 1: arrived -> back to idle, and tell control to stop.
+  // Checking if goal was reached
   if (goalReached()) {
     RCLCPP_INFO(this->get_logger(), "Goal reached!");
     state_ = State::WAITING_FOR_GOAL;
@@ -82,8 +81,7 @@ void PlannerNode::timerCallback() {
     return;
   }
 
-  // Transition 2: taking far too long -> give up rather than wander forever (e.g. the
-  // goal turned out to be unreachable once we could see around the corner).
+  // Giving up since goal was not reached in normal time, timeout
   const double elapsed = (this->now() - goal_start_time_).seconds();
   if (elapsed > goal_timeout_s_) {
     RCLCPP_WARN(this->get_logger(), "Goal timed out after %.0f s, giving up", elapsed);
@@ -92,15 +90,13 @@ void PlannerNode::timerCallback() {
     return;
   }
 
-  // Otherwise: periodically replan from wherever the robot actually is now. The map
-  // callback already replans on every new map, but this is a safety net in case the
-  // robot drifts off the path between map updates.
+  // Periodic replan of the path
   if ((this->now() - last_plan_time_).seconds() >= replan_period_s_) {
     planPath();
   }
 }
 
-bool PlannerNode::goalReached() cons t{
+bool PlannerNode::goalReached() const {
   if (!have_odom_) {
     return false;
   }
